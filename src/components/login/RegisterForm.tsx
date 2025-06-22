@@ -117,7 +117,7 @@ export default function RegisterForm() {
       </div>
 
       <div className="mb-5">
-        <label className="block text-white mb-1">Pekerjaan</label>
+        <label className="block text-white mb-1">Profession</label>
         <input
           type="text"
           value={job}

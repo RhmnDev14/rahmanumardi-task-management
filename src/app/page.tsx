@@ -27,7 +27,7 @@ export default function HomePage() {
           <>
             <LoginForm onForgotPassword={() => setFormType("forgot")} />
             <p className="text-sm text-white mt-2 text-center">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <button
                 onClick={() => setFormType("register")}
                 className="text-blue-400 hover:underline"

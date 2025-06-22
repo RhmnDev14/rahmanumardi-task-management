@@ -30,12 +30,12 @@ export default function HomePage() {
           <>
             <LoginForm onForgotPassword={() => setFormType("forgot")} />
             <p className="text-sm text-white mt-2 text-center">
-              Belum punya akun?{" "}
+              Don't have an account?{" "}
               <button
                 onClick={() => setFormType("register")}
                 className="text-blue-400 hover:underline"
               >
-                Daftar di sini
+                Register here!
               </button>
             </p>
           </>
@@ -45,12 +45,12 @@ export default function HomePage() {
           <>
             <RegisterForm onRegisterSuccess={() => setFormType("login")} />
             <p className="text-sm text-white mt-2 text-center">
-              Sudah punya akun?{" "}
+              Already have an account?{" "}
               <button
                 onClick={() => setFormType("login")}
                 className="text-blue-400 hover:underline"
               >
-                Login di sini
+                Login here!
               </button>
             </p>
           </>

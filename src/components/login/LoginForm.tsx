@@ -21,17 +21,20 @@ export default function LoginForm({ onForgotPassword }: LoginFormProps) {
 
     try {
       const res = await API.post("/login", { email, password });
-
       setMessage(res.data.message || "Login berhasil!");
-      // Simpan token jika tersedia
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
       }
-    } catch (err: any) {
-      const errMsg = err.response?.data?.message || "Login gagal.";
-      setMessage(errMsg);
+    } catch (err: unknown) {
+      if (err && typeof err === "object" && "response" in err) {
+        const axiosErr = err as { response?: { data?: { message?: string } } };
+        const errMsg = axiosErr.response?.data?.message || "Login gagal.";
+        setMessage(errMsg);
+      } else {
+        setMessage("Login gagal.");
+      }
     } finally {
-      setLoading(false);
+      setLoading(false); // ⬅️ ini penting
     }
   };
 
@@ -93,7 +96,7 @@ export default function LoginForm({ onForgotPassword }: LoginFormProps) {
           onClick={onForgotPassword}
           className="text-sm text-blue-400 hover:underline"
         >
-          Lupa password?
+          Forgot password?
         </button>
       </div>
 

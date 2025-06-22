@@ -18,6 +18,15 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const resetForm = () => {
+    setFullname("");
+    setEmail("");
+    setPhone("");
+    setGender("");
+    setPassword("");
+    setJob("");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -34,13 +43,22 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
       });
 
       setMessage(res.data.message || "Register success!");
-      onRegisterSuccess(); // switch to login
-    } catch (error: any) {
-      const msg =
-        error.response?.data?.message || "Register failed. Please try again.";
-      setMessage(msg);
+      resetForm(); // ✅ reset input setelah berhasil
+      onRegisterSuccess(); // ✅ callback ke login
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "response" in error) {
+        const axiosErr = error as {
+          response?: { data?: { message?: string } };
+        };
+        const msg =
+          axiosErr.response?.data?.message ||
+          "Register failed. Please try again.";
+        setMessage(msg);
+      } else {
+        setMessage("Register failed. Please try again.");
+      }
     } finally {
-      setLoading(false);
+      setLoading(false); // ✅ tombol aktif kembali
     }
   };
 

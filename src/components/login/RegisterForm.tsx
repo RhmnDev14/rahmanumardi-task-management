@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import API from "@/lib/api";
 
-export default function RegisterForm() {
+interface RegisterFormProps {
+  onRegisterSuccess: () => void;
+}
+
+export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -10,17 +15,33 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [job, setJob] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Register:", {
-      fullname,
-      email,
-      phone,
-      gender,
-      password,
-      job,
-    });
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const res = await API.post("/signin", {
+        fullname,
+        email,
+        phone_number: phone,
+        gender,
+        password,
+        profession: job,
+      });
+
+      setMessage(res.data.message || "Register success!");
+      onRegisterSuccess(); // switch to login
+    } catch (error: any) {
+      const msg =
+        error.response?.data?.message || "Register failed. Please try again.";
+      setMessage(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,6 +56,10 @@ export default function RegisterForm() {
       <p className="text-white text-sm italic mb-4 text-center">
         Get started on your journey to better task management!
       </p>
+
+      {message && (
+        <p className="text-white text-sm mb-4 text-center">{message}</p>
+      )}
 
       <div className="mb-3">
         <label className="block text-white mb-1">Full Name</label>
@@ -130,9 +155,10 @@ export default function RegisterForm() {
 
       <button
         type="submit"
+        disabled={loading}
         className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-md transition text-sm sm:text-base"
       >
-        Register
+        {loading ? "Registering..." : "Register"}
       </button>
     </form>
   );

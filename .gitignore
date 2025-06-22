@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# BE
+/BE/docker-postgres-data/
+/BE/docker-compose.yml

@@ -26,7 +26,7 @@ export default function LoginForm({ onForgotPassword }: LoginFormProps) {
       </h2>
 
       <p className="text-white text-sm italic mb-4 text-center">
-        Stay organized, stay productive. Let’s get back to work!
+        Stay organized, stay productive. Let&apos;s get back to work!
       </p>
 
       <div className="mb-4">

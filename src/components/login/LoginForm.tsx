@@ -43,14 +43,12 @@ export default function LoginForm({ onForgotPassword }: LoginFormProps) {
       onSubmit={handleSubmit}
       className="backdrop-blur-md bg-white/10 px-6 py-8 sm:p-8 rounded-xl shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg border border-white/20"
     >
-      <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 drop-shadow-md tracking-wide">
-        Task Management
-      </h2>
-      <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-center text-white tracking-wide">
+      <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 drop-shadow-md tracking-wide">
         Login
       </h2>
+
       <p className="text-white text-sm italic mb-4 text-center">
-        Stay organized, stay productive — let’s get back to work!
+        Stay organized, stay productive. Let’s get back to work!
       </p>
 
       {message && (

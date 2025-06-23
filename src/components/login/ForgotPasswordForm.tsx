@@ -21,7 +21,7 @@ export default function ForgotPasswordForm({
       onSubmit={handleSubmit}
       className="backdrop-blur-md bg-white/10 px-6 py-8 sm:p-8 rounded-xl shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg border border-white/20"
     >
-      <h2 className="text-4xl sm:text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500 drop-shadow-md tracking-wide">
+      <h2 className="text-4xl sm:text-4xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500 drop-shadow-md tracking-wide">
         Forgot Password
       </h2>
 

@@ -43,8 +43,8 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
       });
 
       setMessage(res.data.message || "Register success!");
-      resetForm(); // ✅ reset input setelah berhasil
-      onRegisterSuccess(); // ✅ callback ke login
+      resetForm();
+      onRegisterSuccess();
     } catch (error: unknown) {
       if (error && typeof error === "object" && "response" in error) {
         const axiosErr = error as {
@@ -58,126 +58,133 @@ export default function RegisterForm({ onRegisterSuccess }: RegisterFormProps) {
         setMessage("Register failed. Please try again.");
       }
     } finally {
-      setLoading(false); // ✅ tombol aktif kembali
+      setLoading(false);
     }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="backdrop-blur-md bg-white/10 px-6 py-8 sm:p-8 rounded-xl shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg border border-white/20"
+      className="px-6 py-6 sm:px-6 sm:py-8 rounded-xl shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg border border-white/20 max-h-[calc(100vh-100px)] flex flex-col backdrop-blur-md bg-white/10"
     >
-      <h2 className="text-4xl sm:text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-teal-500 to-blue-500 drop-shadow-md tracking-wide">
-        Register
-      </h2>
-
-      <p className="text-white text-sm italic mb-4 text-center">
-        Get started on your journey to better task management!
-      </p>
-
-      {message && (
-        <p className="text-white text-sm mb-4 text-center">{message}</p>
-      )}
-
-      <div className="mb-3">
-        <label className="block text-white mb-1">Full Name</label>
-        <input
-          type="text"
-          value={fullname}
-          onChange={(e) => setFullname(e.target.value)}
-          required
-          className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter your full name"
-        />
+      {/* Header */}
+      <div className="sticky top-0 z-10 pb-2">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-teal-500 to-blue-500 drop-shadow-md tracking-wide">
+          Register
+        </h2>
+        <p className="text-white text-sm italic text-center">
+          Get started on your journey to better task management!
+        </p>
+        {message && (
+          <p className="text-white text-sm mt-2 text-center">{message}</p>
+        )}
       </div>
 
-      <div className="mb-3">
-        <label className="block text-white mb-1">Email</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter your email"
-        />
-      </div>
-
-      <div className="mb-3">
-        <label className="block text-white mb-1">Phone Number</label>
-        <input
-          type="tel"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          required
-          className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter your phone number"
-        />
-      </div>
-
-      <div className="mb-3">
-        <label className="block text-white mb-1">Gender</label>
-        <select
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-          required
-          className="w-full px-4 py-2 rounded-md bg-white/20 text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-        >
-          <option value="" disabled>
-            Select gender
-          </option>
-          <option value="male" className="text-black">
-            Male
-          </option>
-          <option value="female" className="text-black">
-            Female
-          </option>
-          <option value="other" className="text-black">
-            Other
-          </option>
-        </select>
-      </div>
-
-      <div className="mb-3">
-        <label className="block text-white mb-1">Password</label>
-        <div className="relative">
+      {/* Scrollable Input Fields */}
+      <div className="overflow-y-auto flex-1 mt-4 space-y-3 pr-2 scrollbar-custom scroll-smooth">
+        <div>
+          <label className="block text-white mb-1">Full Name</label>
           <input
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="text"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
             required
-            className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10"
-            placeholder="Enter your password"
+            className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your full name"
           />
-          <button
-            type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
-            className="absolute inset-y-0 right-2 flex items-center text-white text-sm hover:text-blue-300"
+        </div>
+
+        <div>
+          <label className="block text-white mb-1">Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div>
+          <label className="block text-white mb-1">Phone Number</label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+            className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your phone number"
+          />
+        </div>
+
+        <div>
+          <label className="block text-white mb-1">Gender</label>
+          <select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            required
+            className="w-full px-4 py-2 rounded-md bg-white/20 text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
-            {showPassword ? "🙈" : "👁️"}
-          </button>
+            <option value="" disabled>
+              Select gender
+            </option>
+            <option value="male" className="text-black">
+              Male
+            </option>
+            <option value="female" className="text-black">
+              Female
+            </option>
+            <option value="other" className="text-black">
+              Other
+            </option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-white mb-1">Password</label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10"
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute inset-y-0 right-2 flex items-center text-white text-sm hover:text-blue-300"
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-white mb-1">Profession</label>
+          <input
+            type="text"
+            value={job}
+            onChange={(e) => setJob(e.target.value)}
+            required
+            className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your job"
+          />
         </div>
       </div>
 
-      <div className="mb-5">
-        <label className="block text-white mb-1">Profession</label>
-        <input
-          type="text"
-          value={job}
-          onChange={(e) => setJob(e.target.value)}
-          required
-          className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter your job"
-        />
+      {/* Sticky Button */}
+      <div className="sticky bottom-0 pt-4 mt-4">
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-md transition text-sm sm:text-base"
+        >
+          {loading ? "Registering..." : "Register"}
+        </button>
       </div>
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-md transition text-sm sm:text-base"
-      >
-        {loading ? "Registering..." : "Register"}
-      </button>
     </form>
   );
 }
